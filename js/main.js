@@ -1,3 +1,5 @@
 window.onload = function(e){
-  window.alert("Hello!");
+  window.alert('Hello!');
+  content = document.getElementById('content');
+  content.innterHTML = 'Hello!';
 }
