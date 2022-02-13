@@ -1,3 +1,3 @@
-document.onload = function(e){
+window.onload = function(e){
   alert("Hello!");
 }
