@@ -2,3 +2,16 @@ body{
   background-color: lightgray;
   color: black;
 }
+.template{
+  display: none;
+}
+
+.NoteContent {
+  margin: 10px;
+  border: 10px solid darkgrey;
+}
+
+.NoteContent[contenteditable = true] {
+  margin: 10px;
+  border: 10px solid lightgreen;
+}

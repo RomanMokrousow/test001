@@ -2,14 +2,17 @@
 <html>
   <head>
     <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/common.js"></script>
     <script src="./js/main.js"></script>
   </head>
   <body>
     <header>
-      
+      Noter
     </header>
     <nav>
-      <button id="showLocalSyorage" onclick="alert('fgg');doOnShowLocalStorage();">show local storage</button>
+      <button id="btnShowLocalStorage" onclick="doOnShowLocalStorage();">show local storage</button>
+      <button id="btnShowNoteList" onclick="showNoteList();">show list of notes</button>
+      <button id="btnCreateNote" onclick="createNote();">new note</button>
     </nav>
     <main  id="content">
       Test for noter.
@@ -22,5 +25,19 @@
       
     </footer>
   </body>      
-
+  <templates>
+    <div id="tmplNote" class="template">
+      <div class="NoteToolbar">
+        <button onclick="doOnNoteSave();">save</button>
+        <button onclick="doOnNoteEdit();">edit</button>
+        <button>reload</button>
+      </div>
+      <div class="NoteContent">
+        
+      </div>
+    </div>
+    <li id="tmplNoteListButton" class="template">
+      <a href="#"></a>
+    </li>
+  </templates>
 </html>
