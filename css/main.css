@@ -1,7 +1,14 @@
 body{
   background-color: lightgray;
   color: black;
+  font-size: 2vw;
+  font-family: monospace;
 }
+
+button{
+  font-size: 2vw;
+}
+
 .template{
   display: none;
 }
@@ -14,4 +21,11 @@ body{
 .NoteContent[contenteditable = true] {
   margin: 10px;
   border: 10px solid lightgreen;
+}
+
+@media (max-width: 300mm) and (orientation: portrait){
+  body, button{
+    font-size: 3vw;
+  }
+  
 }

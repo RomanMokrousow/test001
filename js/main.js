@@ -27,7 +27,7 @@ function showNoteList() {
     let node = document.querySelector('#tmplNoteListButton').cloneNode(true);
     node.setAttribute('class','NoteListButton');
     let a = node.querySelector('a');
-    a.innerHTML = Notes[i].Text;
+    a.innerHTML = Notes[i].Text.split("\n",2)[0];
     a.onclick = function(e){showNote(i)}
     ListNode.appendChild(node);
     
@@ -38,9 +38,10 @@ function showNoteList() {
 
 function formatNote(index) {
   let result = '';
-  let Note = Notes[index] 
-  for (var k in Note) {
-    result += `<br>${k} = ${Note[k]}`;
+  let Note = Notes[index]
+  Note = Note.Text.split("\n");
+  for(let i=0;i<Note.length;i++){
+    result += `<p>${Note[i]}</p>`;
   }
   return result;
 }
