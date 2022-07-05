@@ -1,10 +1,11 @@
 import {clearNode, saveToFile} from '/js/common.js';
-export {doOnNoteSave}
 
 var Content;
 var Notes = [];
 
-window.onload = function(e){
+//window.onload = 
+doOnWindowLoad();
+function doOnWindowLoad(e){
   window.alert('Hello!');
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
