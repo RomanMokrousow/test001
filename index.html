@@ -2,8 +2,8 @@
 <html>
   <head>
     <link rel="stylesheet" href="./css/main.css">
-    <script src="./js/common.js"></script>
-    <script src="./js/main.js"></script>
+    <script srcaa="./js/common.js"></script>
+    <script  type="module" src="./js/main.js"></script>
   </head>
   <body>
     <header>
@@ -28,8 +28,8 @@
   <templates>
     <div id="tmplNote" class="template">
       <div class="NoteToolbar">
-        <button onclick="doOnNoteSave();">save</button>
-        <button onclick="doOnNoteEdit();">edit</button>
+        <button class="btnNoteSave" onclick="doOnNoteSave();">save</button>
+        <button class="btnNoteEdit" onclick="doOnNoteEdit();">edit</button>
         <button>reload</button>
       </div>
       <div class="NoteContent">
