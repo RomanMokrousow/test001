@@ -1,4 +1,4 @@
-import {clearNode, saveToFile} from './js/common.js';
+import {clearNode, saveToFile} from './common.js';
 
 var Content;
 var Notes = [];
