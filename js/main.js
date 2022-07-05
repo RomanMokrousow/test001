@@ -1,5 +1,4 @@
 import {clearNode, saveToFile} from '/js/common.js';
-export {doOnNoteSave}
 
 var Content;
 var Notes = [];
