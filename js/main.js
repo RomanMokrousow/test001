@@ -1,3 +1,6 @@
+import {clearNode, saveToFile} from '/js/common.js';
+export {doOnNoteSave}
+
 var Content;
 var Notes = [];
 
@@ -50,6 +53,7 @@ function showNote(index) {
   let node = document.querySelector('#tmplNote').cloneNode(true);
   node.NoteIndex = index;
   node.setAttribute('class','NoteShow');
+  node.querySelector('.btnNoteSave').onclick = doOnNoteSave;
   node.querySelector('.NoteContent').innerHTML = formatNote(index);
   clearNode(Content);Content.appendChild(node)
 }
@@ -78,5 +82,8 @@ function doOnNoteEdit(e){
 }
 
 function doOnNoteSave(e) {
-  window.localStorage.setItem('Noter.NoteList',JSON.stringify(Notes));
+  let Data = JSON.stringify(Notes);
+  window.localStorage.setItem('Noter.NoteList',Data);
+  saveToFile(Data,'NoterData.json');
+  
 }
