@@ -16,6 +16,7 @@ button{
 .NoteContent {
   margin: 10px;
   border: 10px solid darkgrey;
+  max-width: 90%;
 }
 
 .NoteContent[contenteditable = true] {
