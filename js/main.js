@@ -3,7 +3,7 @@ import {clearNode, saveToFile} from '/js/common.js';
 var Content;
 var Notes = [];
 
-//window.onload = 
+window.onload = doOnWindowLoad;
 doOnWindowLoad();
 function doOnWindowLoad(e){
   window.alert('Hello!');
