@@ -3,6 +3,7 @@ body{
   color: black;
   font-size: 2vw;
   font-family: monospace;
+  max-width: 100%;
 }
 
 button{
