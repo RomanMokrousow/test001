@@ -14,7 +14,8 @@ function doOnWindowLoad(e){
   }else{
     createNote()
   }
-  document.querySelector('#btnCreateNote').onclick = doOnNoteEdit;
+  document.querySelector('#btnCreateNote').onclick = createNote;
+  document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
   //Content.innerHTML = 'Hello! You are welcome.';
 }
 
