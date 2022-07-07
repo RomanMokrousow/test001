@@ -1,4 +1,4 @@
-export {clearNode, saveToFile}
+export {clearNode, saveToFile, saveToGithub}
 
 function clearNode(node) {
   while (node.lastChild) {node.removeChild(node.lastChild)}
