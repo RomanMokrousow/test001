@@ -17,7 +17,7 @@ function saveToFile(data, filename, type) {
   }, 0);
 }
 
-function loadFromGithub(user,repo,filepath,token){
+function _loadFromGithub(user,repo,filepath,token){
   return new Promise((resolve,reject) => {
     let Headers = {};
     if(token){Headers.Authorization = 'token ' + token}
@@ -36,8 +36,28 @@ function loadFromGithub(user,repo,filepath,token){
   })
 }
 
+function _saveToGithub(data,user,repo,filepath,token,sha){
+  return new Promise((resolve,reject) => {
+    let Headers = {};
+    Headers.Authorization = 'token ' + token;
+    fetch(`https://api.github.com/repos/${user}/${repo}/contents/test001.txt`,{
+      method: 'Get',
+      headers: Headers
+    })
+    .then(resp => {
+      resolve(resp)
+    })
+    .catch(c => {
+      let s = 'Somthing wrong in loadFromGithub->fetch'
+      console.error(s);
+      reject(s);
+    })
+  })
+
+}
+
 function saveToGithub(data,user,repo,filepath,token){
-  loadFromGithub(user,repo,filepath,token)
+  _loadFromGithub(user,repo,filepath,token)
   .then(resp => {
     if(resp.ok){
       resp.text()
