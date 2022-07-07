@@ -18,7 +18,7 @@ function doOnWindowLoad(e){
   document.querySelector('#btnShowNoteList').onclick = showNoteList;
   document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
   document.querySelector('#btnSave').onclick = doOnSave;
-  document.querySelector('#inpLoadFromFile').onchange = doOnSave;
+  document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   //Content.innerHTML = 'Hello! You are welcome.';
 }
 
