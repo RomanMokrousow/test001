@@ -71,6 +71,7 @@ function formatNote(index) {
 
 function showNote(index) {
   let node = document.querySelector('#tmplNote').cloneNode(true);
+  node.querySelector('.btnNoteEdit').onclick = doOnNoteEdit;
   node.NoteIndex = index;
   node.setAttribute('class','NoteShow');
   node.querySelector('.NoteContent').innerHTML = formatNote(index);
