@@ -4,7 +4,7 @@ var Content;
 var Notes = [];
 
 window.onload = doOnWindowLoad;
-doOnWindowLoad();
+//doOnWindowLoad();
 function doOnWindowLoad(e){
   window.alert('Hello!');
   Content = document.getElementById('content');
@@ -14,6 +14,7 @@ function doOnWindowLoad(e){
   }else{
     createNote()
   }
+  document.querySelector('#btnCreateNote').onclick = doOnNoteEdit;
   //Content.innerHTML = 'Hello! You are welcome.';
 }
 
