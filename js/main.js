@@ -105,5 +105,5 @@ function doOnSave(e) {
   let Data = JSON.stringify(Notes);
   window.localStorage.setItem('Noter.NoteList',Data);
   saveToFile(Data,'NoterData.json');
-  saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo','test001',localStorage.getItem('Noter.optionGitToken')));
+  saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
