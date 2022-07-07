@@ -7,6 +7,11 @@ window.onload = doOnWindowLoad;
 //doOnWindowLoad();
 function doOnWindowLoad(e){
   window.alert('Hello!');
+  document.querySelector('#btnCreateNote').onclick = createNote;
+  document.querySelector('#btnShowNoteList').onclick = showNoteList;
+  document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
+  document.querySelector('#btnSave').onclick = doOnSave;
+  document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
     Notes = JSON.parse(nl);
@@ -14,11 +19,6 @@ function doOnWindowLoad(e){
   }else{
     createNote()
   }
-  document.querySelector('#btnCreateNote').onclick = createNote;
-  document.querySelector('#btnShowNoteList').onclick = showNoteList;
-  document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
-  document.querySelector('#btnSave').onclick = doOnSave;
-  document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   //Content.innerHTML = 'Hello! You are welcome.';
 }
 
