@@ -39,6 +39,11 @@ function loadFromGithub(user,repo,filepath,token){
 function saveToGithub(data,user,repo,filepath,token){
   loadFromGithub(user,repo,filepath,token)
   .then(resp => {
-    console.log(resp);
+    if(resp.ok){
+      resp.text()
+      .then(s => {
+        console.log(JSON.parse(s));
+      })
+    }else{console.log(resp)}
   })
 }
