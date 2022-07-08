@@ -1,4 +1,4 @@
-import {clearNode, saveToFile, saveToGithub} from './common.js';
+import {clearNode, saveToFile, saveToGithub, loadFromGithub} from './common.js';
 
 var Content;
 var Notes = [];
@@ -9,8 +9,8 @@ function doOnWindowLoad(e){
   window.alert('Hello!');
   document.querySelector('#btnCreateNote').onclick = createNote;
   document.querySelector('#btnShowNoteList').onclick = showNoteList;
-  document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
   document.querySelector('#btnSave').onclick = doOnSave;
+  document.querySelector('#btnLoadFromGithub').onclick = doOnLoadFromGithub;
   document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
@@ -30,38 +30,38 @@ function doOnLoadFromFile(e){
   }
   let reader = new FileReader();
   reader.onload = function(e){
-    Notes = JSON.parse(e.target.result);
+    //Notes = JSON.parse(e.target.result);
+    StringToNotes(e.target.result);
     showNoteList();
   }
   reader.readAsText(files[0])
 }
 
 function createNote() {
-  let note = {};
-  note.Text = 'New note';
-  let i = Notes.push(note);
-  showNote(i-1);
+  let note = {Text: 'New Note'};
+  let i = 0;while(true){if(!Notes.list['note'+i]){break}; i++}
+  i = 'note'+i;
+  Notes.list[i] = note;
+  showNote(i);
 }
 
 function showNoteList() {
   clearNode(Content);
   let ListNode = document.createElement('ul');
-  let s = '';for (let i = 0;i < Notes.length;i++) {
+  for (let k in Notes.list) {
     let node = document.querySelector('#tmplNoteListButton').cloneNode(true);
     node.setAttribute('class','NoteListButton');
     let a = node.querySelector('a');
-    a.innerHTML = Notes[i].Text.split("\n",2)[0];
-    a.onclick = function(e){showNote(i)}
+    a.innerHTML = Notes.list[k].Text.split("\n",2)[0];
+    a.onclick = function(e){showNote(k)}
     ListNode.appendChild(node);
-    
-    s += i;
   }
   Content.appendChild(ListNode);
 }
 
 function formatNote(index) {
   let result = '';
-  let Note = Notes[index]
+  let Note = Notes.list[index]
   Note = Note.Text.split("\n");
   for(let i=0;i<Note.length;i++){
     result += `<p>${Note[i]}</p>`;
@@ -72,6 +72,7 @@ function formatNote(index) {
 function showNote(index) {
   let node = document.querySelector('#tmplNote').cloneNode(true);
   node.querySelector('.btnNoteEdit').onclick = doOnNoteEdit;
+  node.querySelector('.btnNoteDelete').onclick = doOnNoteDelete;
   node.NoteIndex = index;
   node.setAttribute('class','NoteShow');
   node.querySelector('.NoteContent').innerHTML = formatNote(index);
@@ -87,23 +88,54 @@ function doOnShowLocalStorage(e){
   Content.innerHTML = s;
 }
 
+function doOnNoteDelete(e){
+  let index = e.target.parentElement.parentElement.NoteIndex;
+  delete Notes.list[index];
+  showNoteList();
+}
+
 function doOnNoteEdit(e){
-  let node = document.querySelector('.NoteContent');
+  let node = e.target.parentElement.parentElement.querySelector('.NoteContent');
   let index = node.parentElement.NoteIndex;
   if (node.getAttribute('contenteditable') == 'true') {
-  Notes[index].Text = node.innerText;
+  Notes.list[index].Text = node.innerText;
   node.innerHTML = formatNote(index);
   node.setAttribute('contenteditable','false');
   } else {
-  node.innerText = Notes[index].Text;
+  node.innerText = Notes.list[index].Text;
   node.setAttribute('contenteditable','true');
   node.focus();
   }
 }
 
+function NotesToString(){
+  return JSON.stringify(Notes);
+  let Result = {version: '0.0.0', list: {}}
+  Notes.forEach((v,i) => {
+    Result.list[`note${i}`] = v;
+  })
+  return JSON.stringify(Result);
+}
+
+function StringToNotes(str){
+  Notes = JSON.parse(str);return;
+  let Obj = JSON.parse(str);
+  Notes = [];
+  for(let k in Obj.list){Notes.push(Obj.list[k])}
+}
+
 function doOnSave(e) {
-  let Data = JSON.stringify(Notes);
+  let Data = NotesToString(Notes);
   window.localStorage.setItem('Noter.NoteList',Data);
   saveToFile(Data,'NoterData.json');
   saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
+}
+
+function doOnLoadFromGithub(e){
+  loadFromGithub(localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'))
+  .then((Data) => {
+    StringToNotes(Data);
+    //Notes = JSON.parse(Data);
+    showNoteList();
+  })
 }

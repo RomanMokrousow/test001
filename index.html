@@ -13,6 +13,7 @@
       <button id="btnShowNoteList">show list of notes</button>
       <button id="btnCreateNote"">new note</button>
       <button id="btnSave"">save</button>
+      <button id="btnLoadFromGithub"">load from Github</button>
       <input type="file" id="inpLoadFromFile">
     </nav>
     <main  id="content">
@@ -30,7 +31,12 @@
     <div id="tmplNote" class="template">
       <div class="NoteToolbar">
         <button class="btnNoteEdit">edit</button>
-        <button class="btnNoteReload">reload</button>
+        <button class="btnNoteDelete">delete</button>
+      </div>
+      <div class="NoteTabs">
+        <input type="checkbox" name="Поэзия">
+        <input type="checkbox" name="Пушкин">
+        <input type="checkbox" name="Шекспир">
       </div>
       <div class="NoteContent">
         
