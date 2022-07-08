@@ -110,5 +110,9 @@ function doOnSave(e) {
 }
 
 function doOnLoadFromGithub(e){
-  loadFromGithub(localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
+  loadFromGithub(localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'))
+  .then((Data) => {
+    Notes = JSON.parse(Data);
+    showNoteList();
+  })
 }

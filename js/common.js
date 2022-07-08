@@ -93,15 +93,16 @@ function saveToGithub(data,user,repo,filepath,token){
 }
 
 function loadFromGithub(user,repo,filepath,token){
-  _loadFromGithub(user,repo,filepath,token)
-  .then(resp => {
-    if(resp.ok){
-      resp.text()
-      .then(s => {
-        let RespBody = JSON.parse(s);
-        console.log(UnicodeDecodeB64(RespBody.content));
-      })
-    }else{console.log(resp)}
+  return new Promise((resolve,reject) => {
+    _loadFromGithub(user,repo,filepath,token)
+    .then(resp => {
+      if(resp.ok){
+        resp.text()
+        .then(s => {
+          let RespBody = JSON.parse(s);
+          resolve(UnicodeDecodeB64(RespBody.content));
+        })
+      }else{console.log(resp)}
+    })
   })
-
 }
