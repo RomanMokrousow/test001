@@ -37,11 +37,15 @@ function _loadFromGithub(user,repo,filepath,token){
 }
 
 function b64EncodeUnicode(str) {
-  return btoa(encodeURIComponent(str));
+  let a = new TextEncoder().encode(str);
+  var sa = ''; a.map((v) => {sa += String.fromCharCode(v)});
+  return btoa(sa);
 };
 
 function UnicodeDecodeB64(str) {
-  return decodeURIComponent(atob(str));
+  let s = atob(str);
+  let a = new Uint8Array(s.split('').map((v) => {return v.codePointAt(0)}));
+  return new TextDecoder().decode(a);
 };
 
 function _saveToGithub(data,user,repo,filepath,token,sha){
