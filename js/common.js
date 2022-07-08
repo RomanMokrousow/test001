@@ -51,7 +51,7 @@ function _saveToGithub(data,user,repo,filepath,token,sha){
     fetch(`https://api.github.com/repos/${user}/${repo}/contents/test001.txt`,{
       method: 'Put',
       headers: Headers,
-      body: Body
+      body: JSON.stringify(Body)
     })
     .then(resp => {
       resolve(resp)
