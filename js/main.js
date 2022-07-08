@@ -94,14 +94,14 @@ function deleteNote(index){
 }
 
 function doOnNoteEdit(e){
-  let node = document.querySelector('.NoteContent');
+  let node = e.target.parentElement.parentElement.querySelector('.NoteContent');
   let index = node.parentElement.NoteIndex;
   if (node.getAttribute('contenteditable') == 'true') {
-  Notes[index].Text = node.innerText;
+  Notes.list[index].Text = node.innerText;
   node.innerHTML = formatNote(index);
   node.setAttribute('contenteditable','false');
   } else {
-  node.innerText = Notes[index].Text;
+  node.innerText = Notes.list[index].Text;
   node.setAttribute('contenteditable','true');
   node.focus();
   }
