@@ -1,4 +1,4 @@
-import {clearNode, saveToFile, saveToGithub} from './common.js';
+import {clearNode, saveToFile, saveToGithub, loadFromGithub} from './common.js';
 
 var Content;
 var Notes = [];
@@ -11,6 +11,7 @@ function doOnWindowLoad(e){
   document.querySelector('#btnShowNoteList').onclick = showNoteList;
   document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
   document.querySelector('#btnSave').onclick = doOnSave;
+  document.querySelector('#btnLoadFromGithub').onclick = doOnLoadFromGithub;
   document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
@@ -108,6 +109,6 @@ function doOnSave(e) {
   saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
 
-function doOnLoadFromGithub(){
-  
+function doOnLoadFromGithub(e){
+  loadFromGithub(localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
