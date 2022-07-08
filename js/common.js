@@ -91,3 +91,17 @@ function saveToGithub(data,user,repo,filepath,token){
     }else{console.log(resp)}
   })
 }
+
+function loadFromGithub(user,repo,filepath,token){
+  _loadFromGithub(user,repo,filepath,token)
+  .then(resp => {
+    if(resp.ok){
+      resp.text()
+      .then(s => {
+        let RespBody = JSON.parse(s);
+        console.log(RespBody);
+      })
+    }else{console.log(resp)}
+  })
+
+}

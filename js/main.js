@@ -107,3 +107,7 @@ function doOnSave(e) {
   saveToFile(Data,'NoterData.json');
   saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
+
+function doOnLoadFromGithub(){
+  
+}
