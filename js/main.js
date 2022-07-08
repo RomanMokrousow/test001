@@ -90,7 +90,7 @@ function doOnShowLocalStorage(e){
 
 function doOnNoteDelete(e){
   let index = e.target.parentElement.parentElement.NoteIndex;
-  Notes.list.delete(index);
+  delete Notes.list[index];
   showNoteList();
 }
 
