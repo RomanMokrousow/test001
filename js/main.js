@@ -39,7 +39,7 @@ function doOnLoadFromFile(e){
 
 function createNote() {
   let note = {Text: 'New Note'};
-  i = 0;while(true){if(!Notes.list['note'+i]){break}; i++}
+  let i = 0;while(true){if(!Notes.list['note'+i]){break}; i++}
   let i = 'note'+i;
   Notes.list[i] = note;
   showNote(i);
