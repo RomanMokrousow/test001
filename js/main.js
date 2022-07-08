@@ -38,31 +38,30 @@ function doOnLoadFromFile(e){
 }
 
 function createNote() {
-  let note = {};
-  note.Text = 'New note';
-  let i = Notes.push(note);
-  showNote(i-1);
+  let note = {Text: 'New Note'};
+  i = 0;while(true){if(!Notes.list['note'+i]){break}; i++}
+  let i = 'note'+i;
+  Notes.list[i] = note;
+  showNote(i);
 }
 
 function showNoteList() {
   clearNode(Content);
   let ListNode = document.createElement('ul');
-  let s = '';for (let i = 0;i < Notes.length;i++) {
+  for (let k in Notes.list) {
     let node = document.querySelector('#tmplNoteListButton').cloneNode(true);
     node.setAttribute('class','NoteListButton');
     let a = node.querySelector('a');
-    a.innerHTML = Notes[i].Text.split("\n",2)[0];
-    a.onclick = function(e){showNote(i)}
+    a.innerHTML = Notes.list[k].Text.split("\n",2)[0];
+    a.onclick = function(e){showNote(k)}
     ListNode.appendChild(node);
-    
-    s += i;
   }
   Content.appendChild(ListNode);
 }
 
 function formatNote(index) {
   let result = '';
-  let Note = Notes[index]
+  let Note = Notes.list[index]
   Note = Note.Text.split("\n");
   for(let i=0;i<Note.length;i++){
     result += `<p>${Note[i]}</p>`;
@@ -109,6 +108,7 @@ function doOnNoteEdit(e){
 }
 
 function NotesToString(){
+  return JSON.stringify(Notes);
   let Result = {version: '0.0.0', list: {}}
   Notes.forEach((v,i) => {
     Result.list[`note${i}`] = v;
@@ -117,22 +117,24 @@ function NotesToString(){
 }
 
 function StringToNotes(str){
+  Notes = JSON.parse(str);return;
   let Obj = JSON.parse(str);
   Notes = [];
   for(let k in Obj.list){Notes.push(Obj.list[k])}
 }
 
 function doOnSave(e) {
-  let Data = JSON.stringify(Notes);
+  let Data = NotesToString(Notes);
   window.localStorage.setItem('Noter.NoteList',Data);
-  saveToFile(NotesToString(Notes),'NoterData.json');
+  saveToFile(Data,'NoterData.json');
   saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
 
 function doOnLoadFromGithub(e){
   loadFromGithub(localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'))
   .then((Data) => {
-    Notes = JSON.parse(Data);
+    StringToNotes(Data);
+    //Notes = JSON.parse(Data);
     showNoteList();
   })
 }
