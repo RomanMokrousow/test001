@@ -1,12 +1,17 @@
-import {clearNode, saveToFile} from './common.js';
+import {clearNode, saveToFile, saveToGithub} from './common.js';
 
 var Content;
 var Notes = [];
 
 window.onload = doOnWindowLoad;
-doOnWindowLoad();
+//doOnWindowLoad();
 function doOnWindowLoad(e){
   window.alert('Hello!');
+  document.querySelector('#btnCreateNote').onclick = createNote;
+  document.querySelector('#btnShowNoteList').onclick = showNoteList;
+  document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
+  document.querySelector('#btnSave').onclick = doOnSave;
+  document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
     Notes = JSON.parse(nl);
@@ -15,6 +20,20 @@ function doOnWindowLoad(e){
     createNote()
   }
   //Content.innerHTML = 'Hello! You are welcome.';
+}
+
+function doOnLoadFromFile(e){
+  let files = e.target.files;
+  if(files.length <=0){
+    console.log('there are no files');
+    return;
+  }
+  let reader = new FileReader();
+  reader.onload = function(e){
+    Notes = JSON.parse(e.target.result);
+    showNoteList();
+  }
+  reader.readAsText(files[0])
 }
 
 function createNote() {
@@ -52,9 +71,9 @@ function formatNote(index) {
 
 function showNote(index) {
   let node = document.querySelector('#tmplNote').cloneNode(true);
+  node.querySelector('.btnNoteEdit').onclick = doOnNoteEdit;
   node.NoteIndex = index;
   node.setAttribute('class','NoteShow');
-  node.querySelector('.btnNoteSave').onclick = doOnNoteSave;
   node.querySelector('.NoteContent').innerHTML = formatNote(index);
   clearNode(Content);Content.appendChild(node)
 }
@@ -82,9 +101,9 @@ function doOnNoteEdit(e){
   }
 }
 
-function doOnNoteSave(e) {
+function doOnSave(e) {
   let Data = JSON.stringify(Notes);
   window.localStorage.setItem('Noter.NoteList',Data);
   saveToFile(Data,'NoterData.json');
-  
+  saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
