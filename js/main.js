@@ -119,7 +119,7 @@ function NotesToString(){
 function StringToNotes(str){
   let Obj = JSON.parse(str);
   Notes = [];
-  for(k in Obj.list){Notes.push(Obj.list[k])}
+  for(let k in Obj.list){Notes.push(Obj.list[k])}
 }
 
 function doOnSave(e) {
