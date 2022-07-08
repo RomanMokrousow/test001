@@ -72,7 +72,7 @@ function formatNote(index) {
 function showNote(index) {
   let node = document.querySelector('#tmplNote').cloneNode(true);
   node.querySelector('.btnNoteEdit').onclick = doOnNoteEdit;
-  node.querySelector('.btnNoteDelete').onclick = function(){deleteNote(index)};
+  node.querySelector('.btnNoteDelete').onclick = doOnNoteDelete;
   node.NoteIndex = index;
   node.setAttribute('class','NoteShow');
   node.querySelector('.NoteContent').innerHTML = formatNote(index);
@@ -88,8 +88,9 @@ function doOnShowLocalStorage(e){
   Content.innerHTML = s;
 }
 
-function deleteNote(index){
-  delete(Notes.splice(index,1));
+function doOnNoteDelete(e){
+  let index = e.target.parentElement.parentElement.NoteIndex;
+  Notes.list.delete(index);
   showNoteList();
 }
 
