@@ -89,7 +89,7 @@ function doOnShowLocalStorage(e){
 }
 
 function deleteNote(index){
-  delete(Notes.splice(,1));
+  delete(Notes.splice(index,1));
   showNoteList();
 }
 
