@@ -30,7 +30,8 @@ function doOnLoadFromFile(e){
   }
   let reader = new FileReader();
   reader.onload = function(e){
-    Notes = JSON.parse(e.target.result);
+    //Notes = JSON.parse(e.target.result);
+    StringToNotes(e.target.result);
     showNoteList();
   }
   reader.readAsText(files[0])
@@ -107,10 +108,24 @@ function doOnNoteEdit(e){
   }
 }
 
+function NotesToString(){
+  let Result = {version: '0.0.0', list: {}}
+  Notes.forEach((v,i) => {
+    Result.list[`note${i}`] = v;
+  })
+  return JSON.stringify(Result);
+}
+
+function StringToNotes(str){
+  let Obj = JSON.parse(str);
+  Notes = [];
+  for(k in Obj.list){Notes.push(Obj.list[k])}
+}
+
 function doOnSave(e) {
   let Data = JSON.stringify(Notes);
   window.localStorage.setItem('Noter.NoteList',Data);
-  saveToFile(Data,'NoterData.json');
+  saveToFile(NotesToString(Notes),'NoterData.json');
   saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
 
