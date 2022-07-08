@@ -9,7 +9,6 @@ function doOnWindowLoad(e){
   window.alert('Hello!');
   document.querySelector('#btnCreateNote').onclick = createNote;
   document.querySelector('#btnShowNoteList').onclick = showNoteList;
-  document.querySelector('#tmplNote .btnNoteEdit').onclick = doOnNoteEdit;
   document.querySelector('#btnSave').onclick = doOnSave;
   document.querySelector('#btnLoadFromGithub').onclick = doOnLoadFromGithub;
   document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
@@ -73,6 +72,7 @@ function formatNote(index) {
 function showNote(index) {
   let node = document.querySelector('#tmplNote').cloneNode(true);
   node.querySelector('.btnNoteEdit').onclick = doOnNoteEdit;
+  node.querySelector('.btnNoteDelete').onclick = function(){deleteNote(index)};
   node.NoteIndex = index;
   node.setAttribute('class','NoteShow');
   node.querySelector('.NoteContent').innerHTML = formatNote(index);
@@ -86,6 +86,11 @@ function doOnShowLocalStorage(e){
     s = s + `<br>${k} = ${window.localStorage.getItem(k)}`;
   }
   Content.innerHTML = s;
+}
+
+function deleteNote(index){
+  delete(Notes.splice(,1));
+  showNoteList();
 }
 
 function doOnNoteEdit(e){
