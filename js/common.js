@@ -70,7 +70,10 @@ function saveToGithub(data,user,repo,filepath,token){
       resp.text()
       .then(s => {
         let RespBody = JSON.parse(s);
-        _saveToGithub(data,user,repo,filepath,token,RespBody.sha);
+        _saveToGithub(data,user,repo,filepath,token,RespBody.sha)
+        .then((resp) => {
+          console.log(resp);
+        })
       })
     }else{console.log(resp)}
   })
