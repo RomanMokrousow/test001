@@ -38,8 +38,16 @@ function _loadFromGithub(user,repo,filepath,token){
 
 function _saveToGithub(data,user,repo,filepath,token,sha){
   return new Promise((resolve,reject) => {
-    let Headers = {};
-    Headers.Authorization = 'token ' + token;
+    let Headers = {Authorization: 'token ' + token};
+    let Body = {
+      message:'my commit message',
+      committer:{
+        name:'Monalisa Octocat',
+        email:'octocat@github.com'
+      },
+      content:btoa(data),
+      sha:sha
+    }
     fetch(`https://api.github.com/repos/${user}/${repo}/contents/test001.txt`,{
       method: 'Get',
       headers: Headers
@@ -53,7 +61,6 @@ function _saveToGithub(data,user,repo,filepath,token,sha){
       reject(s);
     })
   })
-
 }
 
 function saveToGithub(data,user,repo,filepath,token){
@@ -62,7 +69,8 @@ function saveToGithub(data,user,repo,filepath,token){
     if(resp.ok){
       resp.text()
       .then(s => {
-        console.log(JSON.parse(s));
+        let RespBody = JSON.parse(s);
+        _saveToGithub(data,user,repo,filepath,token,RespBody.sha);
       })
     }else{console.log(resp)}
   })
