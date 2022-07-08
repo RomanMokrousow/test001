@@ -9,9 +9,11 @@
       Noter
     </header>
     <nav>
-      <button id="btnShowLocalStorage" onclick="doOnShowLocalStorage();">show local storage</button>
-      <button id="btnShowNoteList" onclick="showNoteList();">show list of notes</button>
-      <button id="btnCreateNote" onclick="createNote();">new note</button>
+      <button id="btnShowLocalStorage">show local storage</button>
+      <button id="btnShowNoteList">show list of notes</button>
+      <button id="btnCreateNote"">new note</button>
+      <button id="btnSave"">save</button>
+      <input type="file" id="inpLoadFromFile">
     </nav>
     <main  id="content">
       Test for noter.
@@ -27,9 +29,8 @@
   <templates>
     <div id="tmplNote" class="template">
       <div class="NoteToolbar">
-        <button class="btnNoteSave" onclick="doOnNoteSave();">save</button>
-        <button class="btnNoteEdit" onclick="doOnNoteEdit();">edit</button>
-        <button>reload</button>
+        <button class="btnNoteEdit">edit</button>
+        <button class="btnNoteReload">reload</button>
       </div>
       <div class="NoteContent">
         
