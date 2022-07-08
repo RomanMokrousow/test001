@@ -36,16 +36,24 @@ function _loadFromGithub(user,repo,filepath,token){
   })
 }
 
+function b64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str));
+};
+
+function UnicodeDecodeB64(str) {
+  return decodeURIComponent(atob(str));
+};
+
 function _saveToGithub(data,user,repo,filepath,token,sha){
   return new Promise((resolve,reject) => {
     let Headers = {Authorization: 'token ' + token};
     let Body = {
-      message:'my commit message',
+      message:'Noter data update',
       committer:{
-        name:'Monalisa Octocat',
-        email:'octocat@github.com'
+        name:'The Noter Application',
+        email:'noter.uszn-zlt@github.com'
       },
-      content:btoa(data),
+      content:b64EncodeUnicode(data),
       sha:sha
     }
     fetch(`https://api.github.com/repos/${user}/${repo}/contents/test001.txt`,{
