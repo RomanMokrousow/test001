@@ -49,8 +49,9 @@ function _saveToGithub(data,user,repo,filepath,token,sha){
       sha:sha
     }
     fetch(`https://api.github.com/repos/${user}/${repo}/contents/test001.txt`,{
-      method: 'Get',
-      headers: Headers
+      method: 'Put',
+      headers: Headers,
+      body: Body
     })
     .then(resp => {
       resolve(resp)
