@@ -31,3 +31,16 @@ button{
   }
   
 }
+
+[type=checkbox]:after {
+  content: attr(value);
+  -margin: -1px 15px;
+  margin-left: 15px;
+  vertical-align: top;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+[type=checkbox]{
+  margin-right: 100px;
+}

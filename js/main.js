@@ -1,7 +1,7 @@
 import {clearNode, saveToFile, saveToGithub, loadFromGithub} from './common.js';
 
 var Content;
-var Notes = [];
+var Notes = {version: '0.0.0', list: {}};
 
 window.onload = doOnWindowLoad;
 //doOnWindowLoad();
@@ -14,8 +14,7 @@ function doOnWindowLoad(e){
   document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
-    Notes = JSON.parse(nl);
-    showNoteList()
+    StringToNotes(nl);showNoteList();
   }else{
     createNote()
   }
@@ -118,10 +117,8 @@ function NotesToString(){
 }
 
 function StringToNotes(str){
-  Notes = JSON.parse(str);return;
   let Obj = JSON.parse(str);
-  Notes = [];
-  for(let k in Obj.list){Notes.push(Obj.list[k])}
+  if (Obj.version == Notes.version) {Notes = Obj} else { window.alert('ERROR: Wrong storage version') }
 }
 
 function doOnSave(e) {
