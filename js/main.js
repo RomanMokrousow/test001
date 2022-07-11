@@ -144,7 +144,7 @@ function showNote(index) {
       }else{
         Notes.list[index].Tag.splice(Notes.list[index].Tag.indexOf(v),1);
         Tags.list[v].splice(Tags.list[v].indexOf(index),1);
-        if(Tags.list[v].length < 0){delete Tags.list[v]}
+        if(Tags.list[v].length <= 0){delete Tags.list[v]}
         showNote(index);
       }
     }
