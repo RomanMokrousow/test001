@@ -221,7 +221,15 @@ function StringToNotes(str,storage,rewrite){
     if(rewrite == true){Notes.list={}};
     for(let n in Obj.list){
       let h = md5(Obj.list[n].Text);
-      if(typeof(Notes.list[h]) != 'object'){Notes.list[h] = Obj.list[n];Notes.list[h].Storage = storage}
+      let flag = true;let tail='';let i='0';while(true){
+        if(typeof(Notes.list[h + tail]) != 'object'){break}
+        if(Notes.list[h + tail].Text == Obj.list[n].Text){flag = false;break}
+        i++;tail = '_' + i;
+      }
+      if(flag){
+        Notes.list[h] = Obj.list[n];
+        Notes.list[h].Storage = storage;
+      }
     }
   } else {
     window.alert('ERROR: Wrong storage version')
