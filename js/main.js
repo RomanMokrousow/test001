@@ -218,12 +218,13 @@ function NotesToString(){
   return JSON.stringify(Result);
 }
 
-function StringToNotes(str){
+function StringToNotes(str,rewrite){
   let Obj = JSON.parse(str);
   if (Obj.version == Notes.version){
-    Notes.list={};
+    if(rewrite == true){Notes.list={}};
     for(let n in Obj.list){
-      Notes.list[md5(Obj.list[n].Text)] = Obj.list[n]
+      let h = md5(Obj.list[n].Text)
+      if(typeof(Notes.list[h]) != 'object'){Notes.list[h] = Obj.list[n]}
     }
   } else {
     window.alert('ERROR: Wrong storage version')
