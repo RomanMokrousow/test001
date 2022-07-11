@@ -129,6 +129,8 @@ function showNote(index) {
   let NodeTagHolder = node.querySelector('.NoteTagList');
   clearNode(NodeTagHolder);
   for(let v in Tags.list){
+    let l = document.createElement('label');
+    l.innerText = v;
     let e = document.createElement('input');
     e.setAttribute('type','checkbox');
     e.setAttribute('name','taglist');
@@ -145,7 +147,8 @@ function showNote(index) {
         showNote(index);
       }
     }
-    NodeTagHolder.appendChild(e);
+    l.appendChild(e);
+    NodeTagHolder.appendChild(l);
   }
   let ContentNode = node.querySelector('.NoteContent');
   ContentNode.innerHTML = formatNote(index);
