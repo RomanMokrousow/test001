@@ -1,4 +1,4 @@
-import {clearNode, saveToFile, saveToGithub, loadFromGithub} from './common.js';
+import {clearNode, saveToFile, saveToGithub, loadFromGithub, md5} from './common.js';
 
 var Content;
 var Notes = {version: '0.0.0', list: {}}
@@ -144,6 +144,7 @@ function showNote(index) {
       }else{
         Notes.list[index].Tag.splice(Notes.list[index].Tag.indexOf(v),1);
         Tags.list[v].splice(Tags.list[v].indexOf(index),1);
+        let i = Base.indexOf(v);if(i >= 0){Base.splice(i,1)}
         if(Tags.list[v].length <= 0){delete Tags.list[v]}
         showNote(index);
       }
@@ -219,7 +220,14 @@ function NotesToString(){
 
 function StringToNotes(str){
   let Obj = JSON.parse(str);
-  if (Obj.version == Notes.version) {Notes = Obj} else { window.alert('ERROR: Wrong storage version')}
+  if (Obj.version == Notes.version){
+    Notes.list={};
+    for(let n in Obj.list){
+      Notes.list[md5(Obj.list[n].Text)] = Obj.list[n]
+    }
+  } else {
+    window.alert('ERROR: Wrong storage version')
+  }
   reloadTags();
 }
 
