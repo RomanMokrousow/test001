@@ -210,8 +210,8 @@ function toggleNoteEditMode(NoteContentNode){
 }
 
 function NotesToString(storage){
-  let Obj = {version: Notes.version,list: {}}
-  for(let v in Notes.list){if(Notes.list[v].Storage == storage){Obj[v] = Notes.list[v]}}
+  let Obj = {version: Notes.version, list: {}}
+  for(let v in Notes.list){if(Notes.list[v].Storage == storage){Obj.list[v] = {Text: Notes.list[v].Text, Tag:Notes.list[v].Tag}}}
   return JSON.stringify(Obj);
 }
 
