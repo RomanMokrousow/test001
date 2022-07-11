@@ -220,7 +220,7 @@ function StringToNotes(str,storage,rewrite){
   if (Obj.version == Notes.version){
     if(rewrite == true){Notes.list={}};
     for(let n in Obj.list){
-      let h = md5(Obj.list[n].Text)
+      let h = md5(Obj.list[n].Text);
       if(typeof(Notes.list[h]) != 'object'){Notes.list[h] = Obj.list[n];Notes.list[h].Storage = storage}
     }
   } else {
