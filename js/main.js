@@ -144,6 +144,7 @@ function showNote(index) {
       }else{
         Notes.list[index].Tag.splice(Notes.list[index].Tag.indexOf(v),1);
         Tags.list[v].splice(Tags.list[v].indexOf(index),1);
+        if(Tags.list[v].length < 0){delete Tags.list[v]}
         showNote(index);
       }
     }
@@ -226,7 +227,7 @@ function doOnSave(e) {
   let Data = NotesToString(Notes);
   window.localStorage.setItem('Noter.NoteList',Data);
   saveToFile(Data,'NoterData.json');
-  saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
+  //saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
 
 function doOnLoadFromGithub(e){
