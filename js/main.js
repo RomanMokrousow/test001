@@ -1,4 +1,4 @@
-import {clearNode, saveToFile, saveToGithub, loadFromGithub} from './common.js';
+import {clearNode, saveToFile, saveToGithub, loadFromGithub, md5} from './common.js';
 
 var Content;
 var Notes = {version: '0.0.0', list: {}}
@@ -16,7 +16,7 @@ function doOnWindowLoad(e){
   document.querySelector('#inpLoadFromFile').onchange = doOnLoadFromFile;
   Content = document.getElementById('content');
   let nl = window.localStorage.getItem('Noter.NoteList');if (nl) {
-    StringToNotes(nl);showNoteList();
+    StringToNotes(nl,'localStorage');showNoteList();
   }else{
     createNote()
   }
@@ -41,14 +41,14 @@ function doOnLoadFromFile(e){
   let reader = new FileReader();
   reader.onload = function(e){
     //Notes = JSON.parse(e.target.result);
-    StringToNotes(e.target.result);
+    StringToNotes(e.target.result,`file://${files[0].Name}`);
     showNoteList();
   }
   reader.readAsText(files[0])
 }
 
 function createNote() {
-  let note = {Text: 'New Note', Tag: []};
+  let note = {Text: 'New Note', Tag: [], Storage: 'localStorage'};
   let i = 0;while(true){if(!Notes.list['note'+i]){break}; i++}
   i = 'note'+i;
   Notes.list[i] = note;
@@ -129,6 +129,8 @@ function showNote(index) {
   let NodeTagHolder = node.querySelector('.NoteTagList');
   clearNode(NodeTagHolder);
   for(let v in Tags.list){
+    let l = document.createElement('label');
+    l.innerText = v;
     let e = document.createElement('input');
     e.setAttribute('type','checkbox');
     e.setAttribute('name','taglist');
@@ -142,10 +144,13 @@ function showNote(index) {
       }else{
         Notes.list[index].Tag.splice(Notes.list[index].Tag.indexOf(v),1);
         Tags.list[v].splice(Tags.list[v].indexOf(index),1);
+        let i = Base.indexOf(v);if(i >= 0){Base.splice(i,1)}
+        if(Tags.list[v].length <= 0){delete Tags.list[v]}
         showNote(index);
       }
     }
-    NodeTagHolder.appendChild(e);
+    l.appendChild(e);
+    NodeTagHolder.appendChild(l);
   }
   let ContentNode = node.querySelector('.NoteContent');
   ContentNode.innerHTML = formatNote(index);
@@ -204,32 +209,48 @@ function toggleNoteEditMode(NoteContentNode){
   }
 }
 
-function NotesToString(){
-  return JSON.stringify(Notes);
-  let Result = {version: '0.0.0', list: {}}
-  Notes.forEach((v,i) => {
-    Result.list[`note${i}`] = v;
-  })
-  return JSON.stringify(Result);
+function NotesToString(storage){
+  let Obj = {version: Notes.version, list: {}}
+  for(let v in Notes.list){if(Notes.list[v].Storage == storage){Obj.list[v] = {Text: Notes.list[v].Text, Tag:Notes.list[v].Tag}}}
+  return JSON.stringify(Obj);
 }
 
-function StringToNotes(str){
+function StringToNotes(str,storage,rewrite){
   let Obj = JSON.parse(str);
-  if (Obj.version == Notes.version) {Notes = Obj} else { window.alert('ERROR: Wrong storage version')}
+  if (Obj.version == Notes.version){
+    if(rewrite == true){Notes.list={}};
+    for(let n in Obj.list){
+      let h = md5(Obj.list[n].Text);
+      let flag = true;let tail='';let i='0';while(true){
+        if(typeof(Notes.list[h + tail]) != 'object'){break}
+        if(Notes.list[h + tail].Text == Obj.list[n].Text){flag = false;break}
+        i++;tail = '_' + i;
+      }
+      if(flag){
+        Notes.list[h] = Obj.list[n];
+        Notes.list[h].Storage = storage;
+      }
+    }
+  } else {
+    window.alert('ERROR: Wrong storage version')
+  }
   reloadTags();
 }
 
 function doOnSave(e) {
-  let Data = NotesToString(Notes);
+  let Data = NotesToString('localStorage');
   window.localStorage.setItem('Noter.NoteList',Data);
   saveToFile(Data,'NoterData.json');
-  saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
+  //saveToGithub(Data,localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'));
 }
 
 function doOnLoadFromGithub(e){
-  loadFromGithub(localStorage.getItem('Noter.optionGitUser'),localStorage.getItem('Noter.optionGitRepo'),'test001.txt',localStorage.getItem('Noter.optionGitToken'))
+  let filename = 'test001.txt';
+  let user = localStorage.getItem('Noter.optionGitUser');
+  let repo = localStorage.getItem('Noter.optionGitRepo');
+  loadFromGithub(user,repo,filename,localStorage.getItem('Noter.optionGitToken'))
   .then((Data) => {
-    StringToNotes(Data);
+    StringToNotes(Data,`github://${user}/${repo}/${filename}`);
     //Notes = JSON.parse(Data);
     showNoteList();
   })
