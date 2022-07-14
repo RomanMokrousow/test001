@@ -6,5 +6,5 @@ async function encodeAES(data){
 }
 
 async function getMasterkey(){
-    
+    return '';
 }
