@@ -1,4 +1,4 @@
-export {encodeAES, decodeAES}
+export {encodeAES, decodeAES, AESObjectToBuffer, BufferToAESObject}
 
 var MasterKey = null;
 var MasterKeySalt = (new TextEncoder).encode('solonoskop');
@@ -11,8 +11,26 @@ async function encodeAES(srcArrayBuffer,key){
   return Result;
 }
 
-async function decodeAES(DataObject){
-  return await window.crypto.subtle.decrypt({name: DataObject.alg, iv: DataObject.iv},await getMasterkey(), DataObject.data.buffer);
+function AESObjectToBuffer(AESObject){
+  let Result = new ArrayBuffer(1 + 16 + AESObject.data.buffer.byteLength);
+  let arr = new Uint8Array(Result);
+  arr[0] = 1;
+  arr.set(AESObject.iv,1);
+  arr.set(AESObject.data,17);
+  return Result;
+}
+
+function BufferToAESObject(Buffer){
+  return {
+    alg: 'AES-GCM',
+    iv: new Uint8Array(Buffer.slice(1,17)),
+    data: new Uint8Array(Buffer.slice(17))
+  }
+}
+
+
+async function decodeAES(AESObject){
+  return await window.crypto.subtle.decrypt({name: AESObject.alg, iv: AESObject.iv},await getMasterkey(), AESObject.data.buffer);
 }
 
 
