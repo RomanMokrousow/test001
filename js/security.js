@@ -12,7 +12,7 @@ async function encodeAES(srcArrayBuffer,key){
 }
 
 async function getMasterkey(){
-    if(!MasterKey){MasterKey = await crypto.subtle.deriveKey({"name": "PBKDF2", salt: MasterKeySalt, "iterations": 100000, "hash": "SHA-256"},await PromptMasterKey,{"name": "AES-GCM", "length": 256}, true, ["encrypt", "decrypt"])};
+    if(!MasterKey){MasterKey = await crypto.subtle.deriveKey({"name": "PBKDF2", salt: MasterKeySalt, "iterations": 100000, "hash": "SHA-256"},await PromptMasterKey(),{"name": "AES-GCM", "length": 256}, true, ["encrypt", "decrypt"])};
     return MasterKey;
 }
 
