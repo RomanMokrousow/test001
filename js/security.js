@@ -17,7 +17,7 @@ async function getMasterkey(){
       MasterKey = await crypto.subtle.importKey(
         "raw",
         a,
-        'AES-CTR',
+        'AES-KW',
         false,
         ["encrypt", "decrypt"])
       };
