@@ -26,7 +26,7 @@ function doOnWindowLoad(e){
 }
 
 async function doTests(e){
-  let TestLib = await import('./test.js');
+  let TestLib = await import('./test1.js');
   console.log(TestLib);
   TestLib.runAll();
 }
