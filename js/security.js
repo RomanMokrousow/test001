@@ -17,7 +17,7 @@ async function getMasterkey(){
 }
 
 async function PromptMasterKey(){
-  return window.crypto.subtle.importKey(
+  return await window.crypto.subtle.importKey(
     "raw",
     (new TextEncoder()).encode('PromptResultString_QQsdB4S'),
     "PBKDF2",
