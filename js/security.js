@@ -11,13 +11,16 @@ async function encodeAES(srcArrayBuffer,key){
 }
 
 async function getMasterkey(){
-    if(!MasterKey){MasterKey = await crypto.subtle.importKey(
-      "raw",
-      (new Uint8Array(PromptMasterKey()).buffer,
-      'AES-CTR',
-      false,
-      ["encrypt", "decrypt"]
-    )};
+    if(!MasterKey){
+      let a = new Uint8Array(PromptMasterKey();
+      console.log(a);
+      MasterKey = await crypto.subtle.importKey(
+        "raw",
+        a.buffer,
+        'AES-CTR',
+        false,
+        ["encrypt", "decrypt"])
+      };
     return MasterKey;
 }
 
