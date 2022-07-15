@@ -1,4 +1,4 @@
-export {encodeAES}
+export {encodeAES, decodeAES}
 
 var MasterKey = null;
 var MasterKeySalt = (new TextEncoder).encode('solonoskop');
@@ -11,7 +11,7 @@ async function encodeAES(srcArrayBuffer,key){
   return Result;
 }
 
-async function decryptAES(DataObject){
+async function decodeAES(DataObject){
   return await window.crypto.subtle.decrypt({name: DataObject.alg, iv: DataObject.iv}, getMasterkey(), DataObject.data);
 }
 
