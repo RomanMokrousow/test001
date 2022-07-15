@@ -11,6 +11,10 @@ async function encodeAES(srcArrayBuffer,key){
 }
 
 async function getMasterkey(){
-    if(!MasterKey){MasterKey = await window.crypto.subtle.generateKey({name: "AES-GCM", length: 256},true,["encrypt", "decrypt"]};
-    return MasterKey
+    if(!MasterKey){MasterKey = await crypto.subtle.importKey(  "raw", (new Uint8Array(PromptMasterKey()).buffer),   'AES-CTR' ,  false,   ["encrypt", "decrypt"])};
+    return MasterKey;
+}
+
+function PromptMasterKey(){
+  return 'QQsdB4S';
 }
