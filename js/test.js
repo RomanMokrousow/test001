@@ -4,7 +4,7 @@ export {runAll}
 
 async function runAll(){
     let enc = await security.encodeAES((((new TextEncoder).encode('Две равноуважаемых семьи')).buffer));
-    console.log(enc);
+    console.log(JSON.stringify(enc));
     let dec = await security.decodeAES(enc);
     console.log((new TextDecoder).decode(dec));
 }
