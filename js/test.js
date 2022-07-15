@@ -6,6 +6,6 @@ async function runAll(){
     let enc = await security.encodeAES((((new TextEncoder).encode('Две равноуважаемых семьи')).buffer));
     console.log(enc);
     let dec = await security.decodeAES(enc);
-    console.log(new Uint8Array(dec));
+    console.log((new TextDecoder).decode(dec));
 }
 
