@@ -12,7 +12,7 @@ async function encodeAES(srcArrayBuffer,key){
 
 async function getMasterkey(){
     if(!MasterKey){
-      let a = Uint16Array.from(PromptMasterKey());
+      let a = (new TextEncoder).encode(PromptMasterKey);
       console.log(a);
       MasterKey = await crypto.subtle.importKey(
         "raw",
@@ -25,5 +25,7 @@ async function getMasterkey(){
 }
 
 function PromptMasterKey(){
-  return 'QQsdB4S';
+  return 'PromptResultString_QQsdB4S';
 }
+
+function 
