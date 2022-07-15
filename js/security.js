@@ -12,7 +12,7 @@ async function encodeAES(srcArrayBuffer,key){
 }
 
 async function decodeAES(DataObject){
-  return await window.crypto.subtle.decrypt({name: DataObject.alg, iv: DataObject.iv}, getMasterkey(), DataObject.data);
+  return await window.crypto.subtle.decrypt({name: DataObject.alg, iv: DataObject.iv},await getMasterkey(), DataObject.data);
 }
 
 
