@@ -11,19 +11,16 @@ async function encodeAES(srcArrayBuffer,key){
 }
 
 async function getMasterkey(){
-    if(!MasterKey){
-      let a = (new TextEncoder).encode(PromptMasterKey);
-      console.log(a);
-      MasterKey = await crypto.subtle.importKey(
-        "raw",
-        a,
-        'AES-KW',
-        false,
-        ["encrypt", "decrypt"])
-      };
+    if(!MasterKey){MasterKey = await crypto.subtle.deriveKey({"name": "PBKDF2", salt: salt, "iterations": 100000, "hash": "SHA-256"},PromptMasterKey,{"name": "AES-GCM", "length": 256}, true, ["encrypt", "decrypt"])};
     return MasterKey;
 }
 
 function PromptMasterKey(){
-  return 'PromptResultString_QQsdB4S';
+  return window.crypto.subtle.importKey(
+    "raw",
+    (new TextEncoder()).encode('PromptResultString_QQsdB4S'),
+    "PBKDF2",
+    false,
+    ["deriveBits", "deriveKey"]
+  );
 }
