@@ -7,12 +7,12 @@ async function encodeAES(srcArrayBuffer,key){
   let Result = {alg: 'AES-GCM',iv: new Uint8Array(16), data: null};
   let local_key = (key == undefined)?await getMasterkey():key;
   window.crypto.getRandomValues(Result.iv);
-  Result.data = await window.crypto.subtle.encrypt({name: Result.alg, iv: Result.iv}, local_key, srcArrayBuffer);
+  Result.data = new Uint8Array(await window.crypto.subtle.encrypt({name: Result.alg, iv: Result.iv}, local_key, srcArrayBuffer));
   return Result;
 }
 
 async function decodeAES(DataObject){
-  return await window.crypto.subtle.decrypt({name: DataObject.alg, iv: DataObject.iv},await getMasterkey(), DataObject.data);
+  return await window.crypto.subtle.decrypt({name: DataObject.alg, iv: DataObject.iv},await getMasterkey(), DataObject.data.buffer);
 }
 
 
