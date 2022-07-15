@@ -26,9 +26,9 @@ function doOnWindowLoad(e){
 }
 
 async function doTests(e){
-  let TestLib = await import('./test1.js');
+  let TestLib = await import('./test.js');
   console.log(TestLib);
-  TestLib.runAll();
+  //TestLib.runAll();
 }
 
 function reloadTags(){
