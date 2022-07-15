@@ -1,5 +1,7 @@
 export {encodeAES}
 
+var MasterKey = null;
+
 async function encodeAES(srcArrayBuffer,key){
   let Result = {iv: new Uint8Array(16), data: null};
   let local_key = (key == undefined)?await getMasterkey():key;
@@ -9,5 +11,6 @@ async function encodeAES(srcArrayBuffer,key){
 }
 
 async function getMasterkey(){
-    return 'Wrong data';
+    if(!MasterKey){MasterKey = await window.crypto.subtle.generateKey({name: "AES-GCM", length: 256},true,["encrypt", "decrypt"]};
+    return MasterKey
 }
