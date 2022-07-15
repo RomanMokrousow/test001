@@ -4,7 +4,6 @@ var Content;
 var Notes = {version: '0.0.0', list: {}}
 var Tags = {list: {}}
 var Base = [];
-var Tests = null;
 
 window.onload = doOnWindowLoad;
 //doOnWindowLoad();
@@ -27,8 +26,7 @@ function doOnWindowLoad(e){
 
 async function doTests(e){
   let TestLib = await import('./test.js');
-  console.log(TestLib);
-  //TestLib.runAll();
+  TestLib.runAll();
 }
 
 function reloadTags(){
