@@ -27,5 +27,3 @@ async function getMasterkey(){
 function PromptMasterKey(){
   return 'PromptResultString_QQsdB4S';
 }
-
-function 
