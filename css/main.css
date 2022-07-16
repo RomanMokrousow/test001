@@ -4,10 +4,30 @@ body{
   font-size: 2vw;
   font-family: monospace;
   max-width: 100%;
+  padding-top: 100px;
 }
 
 button{
   font-size: 2vw;
+}
+
+header{
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  background-color: rgba(255, 255, 255, 255);
+  z-index: 999;
+}
+
+details > * {
+  display: block;
+  width: 80%;
+  margin: 10px;
+}
+summary{
+  text-align: right;
+  margin: 10px;
+  padding: 10px;
 }
 
 .template{
@@ -30,19 +50,6 @@ button{
     font-size: 3vw;
   }
   
-}
-
-[type=checkbox]:after {
-  content: attr(value);
-  -margin: -1px 15px;
-  margin-left: 15px;
-  vertical-align: top;
-  white-space: nowrap;
-  display: inline-block;
-}
-
-[type=checkbox]{
-  margin-right: 100px;
 }
 
 .NoteListBase li{
