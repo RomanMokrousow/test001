@@ -1,22 +1,32 @@
 
 <html>
   <head>
+    <link rel="manifest" href="manifest.json">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" href="./css/main.css">
     <script defer type="module" src="./js/main.js"></script>
   </head>
   <body>
     <header>
-      Noter
+      <nav>
+        <details>
+          <summary>|||</summary>
+          <details><summary>frame</summary>
+            <button id="btnTests">tests</button>
+          </details>
+          <details><summary>application</summary>
+            <button id="btnShowNoteList">show list of notes</button>
+            <button id="btnCreateNote"">new note</button>
+            <button id="btnSave"">save</button>
+            <button id="btnLoadFromGithub">load from Github</button>
+            <input type="file" id="inpLoadFromFile">
+          </details>
+          <details><summary>current</summary>
+            
+          </details>
+        </details>
+      </nav>
     </header>
-    <nav>
-      <button id="btnShowLocalStorage">show local storage</button>
-      <button id="btnShowNoteList">show list of notes</button>
-      <button id="btnCreateNote"">new note</button>
-      <button id="btnSave"">save</button>
-      <button id="btnLoadFromGithub">load from Github</button>
-      <input type="file" id="inpLoadFromFile">
-    </nav>
     <main  id="content">
       Test for noter.
       <br>Second line.

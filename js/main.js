@@ -9,6 +9,7 @@ window.onload = doOnWindowLoad;
 //doOnWindowLoad();
 function doOnWindowLoad(e){
   window.alert('Hello!');
+  document.querySelector('#btnTests').onclick = doTests;
   document.querySelector('#btnCreateNote').onclick = createNote;
   document.querySelector('#btnShowNoteList').onclick = showNoteList;
   document.querySelector('#btnSave').onclick = doOnSave;
@@ -21,6 +22,11 @@ function doOnWindowLoad(e){
     createNote()
   }
   //Content.innerHTML = 'Hello! You are welcome.';
+}
+
+async function doTests(e){
+  let TestLib = await import('./test.js');
+  TestLib.runAll();
 }
 
 function reloadTags(){

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Noter. The third brain.",
+  "short_name": "Noter",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Third hemisphere of the brain",
+  "icons": [{
+        "src": "images/touch/homescreen48.png",
+        "sizes": "48x48",
+        "type": "image/png"
+  }]
+}
