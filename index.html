@@ -2,57 +2,12 @@
 <html>
   <head>
     <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./favicon.ico">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="./css/main.css">
-    <script defer type="module" src="./js/main.js"></script>
+    <script defer type="module" src="./lib/appframe/appframe.js"></script>
   </head>
   <body>
-    <header>
-      <nav>
-        <details>
-          <summary>|||</summary>
-          <details><summary>frame</summary>
-            <button id="btnTests">tests</button>
-          </details>
-          <details><summary>application</summary>
-            <button id="btnShowNoteList">show list of notes</button>
-            <button id="btnCreateNote"">new note</button>
-            <button id="btnSave"">save</button>
-            <button id="btnLoadFromGithub">load from Github</button>
-            <input type="file" id="inpLoadFromFile">
-          </details>
-          <details><summary>current</summary>
-            
-          </details>
-        </details>
-      </nav>
-    </header>
-    <main  id="content">
-      Test for noter.
-      <br>Second line.
-      <br>Any new line.
-      <br>And so on
-      <br>And so on
-    </main>
-    <footer>
-      
-    </footer>
   </body>      
-  <templates>
-    <div id="tmplNote" class="template">
-      <div class="NoteToolbar">
-        <button class="btnNoteEdit">edit</button>
-        <button class="btnNoteDelete">delete</button>
-        <input type="text" class="inpNoteAddNewTag"><button class="btnNoteAddNewTag">new tag</button>
-      </div>
-      <div class="NoteTagList">
-      </div>
-      <div class="NoteContent">
-        
-      </div>
-    </div>
-    <li id="tmplNoteListButton" class="template">
-      <a href="#"></a>
-    </li>
-  </templates>
 </html>

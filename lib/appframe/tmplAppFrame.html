@@ -1,0 +1,76 @@
+
+<html>
+  <body>
+    <header>
+      <nav>
+        <details>
+          <summary>|||</summary>
+          <details><summary>frame</summary>
+            <button id="btnTests">tests</button>
+          </details>
+          <details><summary>application</summary>
+            <button id="btnShowNoteList">show list of notes</button>
+            <button id="btnCreateNote"">new note</button>
+            <button id="btnSave"">save</button>
+            <button id="btnLoadFromGithub">load from Github</button>
+            <input type="file" id="inpLoadFromFile">
+          </details>
+          <details><summary>current</summary>
+            
+          </details>
+        </details>
+      </nav>
+    </header>
+    <main  id="content">
+      Test for noter.
+      <br>Second line.
+      <br>Any new line.
+      <br>And so on
+      <br>And so on
+    </main>
+    <footer>
+      
+    </footer>
+    <templates class="template">
+
+      <header id="tmplAppFrame-Header" class="template">
+        <nav>
+          <details>
+            <summary>|||</summary>
+            <details><summary>frame</summary>
+              <button id="btnTests">tests</button>
+            </details>
+            <details><summary>application</summary>
+              <button id="btnShowNoteList">show list of notes</button>
+              <button id="btnCreateNote"">new note</button>
+              <button id="btnSave"">save</button>
+              <button id="btnLoadFromGithub">load from Github</button>
+              <input type="file" id="inpLoadFromFile">
+            </details>
+            <details><summary>current</summary>
+              
+            </details>
+          </details>
+        </nav>
+      </header>
+
+      <div id="tmplNote" class="template">
+        <div class="NoteToolbar">
+          <button class="btnNoteEdit">edit</button>
+          <button class="btnNoteDelete">delete</button>
+          <input size="8" type="text" class="AppNoter-InputAddNewTag"><button class="btnNoteAddNewTag">new tag</button>
+        </div>
+        <div class="NoteTagList">
+        </div>
+        <div class="NoteContent">
+          
+        </div>
+      </div>
+
+      <li id="tmplNoteListButton" class="template">
+        <a href="#"></a>
+      </li>
+
+    </templates>
+  </body>      
+</html>

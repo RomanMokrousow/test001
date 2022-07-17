@@ -45,14 +45,19 @@ summary{
   border: 10px solid lightgreen;
 }
 
-@media (max-width: 300mm) and (orientation: portrait){
-  body, button{
-    font-size: 3vw;
-  }
-  
-}
 
 .NoteListBase li{
   display: inline;
   margin-right: 20px;
+}
+
+@media (max-width: 300mm) and (orientation: portrait){
+  *, button {
+    font-size: 5vw;
+  }
+  button {
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+  }
+  
 }
