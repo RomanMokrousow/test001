@@ -61,3 +61,10 @@ summary{
   }
   
 }
+
+#FrameNav .FrameNavBody{
+  display: none;
+}
+#FrameNav:focus-within > .FrameNavBody{
+  display: block;
+}
